@@ -63,9 +63,11 @@ bot.on('message', function(user, userID, channelID, message, rawEvent, server) {
         if (register){
             console.log("true");
             connection.query("SELECT id FROM citizens;", function(err, result){
+                result = JSON.stringify(result);
                 console.log(result);
-                if (result.indexOf(userID) > -1){
-                    connection.query("INSERT INTO citizens VALUES (" + connection.escape(name) + ", " + connection.escape(sex) + ", " + connection.escape(Date.now()) + ", " + "\"to be added\"" + ", " + connection.escape(userID) + ", " + "\"10\"" + ", " + "\"unemployed\"" + ");", function(err, result){
+                console.log(result.indexOf(userID));
+                if (result.indexOf(userID) === -1){
+                    connection.query("INSERT INTO citizens VALUES (" + connection.escape(name) + ", " + connection.escape(sex) + ", " + connection.escape(Date.now()) + ", " + "\"to be added\"" + ", " + connection.escape(userID) + ", " + "\"10\"" + ", " + "\"unemployed\"" + ", " + "\"alive\"" + ");", function(err, result){
                         console.log("done")
                         if(err){
                             bot.sendMessage({
