@@ -23,6 +23,7 @@ bot.on('message', function(user, userID, channelID, message, rawEvent, server, s
     if (!(channelID in bot.directMessages)) {
         if (message.split(" ")[0] === settings.prefix + "deport"){
             if (bot.servers[bot.serverFromChannel(channelID)].members[userID].roles.indexOf("196567540271546369") > -1){
+                connection.query("UPDATE citizens SET status = REPLACE(status, \"alive\", \"deported\") WHERE id = " + connection.escape(message.split(" ")[1]) + ";")
                 bot.sendMessage({
                     to: channelID,
                     message: "okay"
