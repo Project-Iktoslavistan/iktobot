@@ -19,18 +19,14 @@ bot.on('ready', function() {
     console.log(bot.username + " - (" + bot.id + ")");
 });
 
-bot.on('message', function(user, userID, channelID, message, rawEvent, server, serverID) {
+bot.on('message', function(user, userID, channelID, message, rawEvent, server) {
     if (!(channelID in bot.directMessages)) {
-        if (message.split(" ")[0] === settings.prefix + "deport"){
-            if (bot.servers[bot.serverFromChannel(channelID)].members[userID].roles.indexOf("196567540271546369") > -1){
-                connection.query("UPDATE citizens SET status = REPLACE(status, \"alive\", \"deported\") WHERE id = " + connection.escape(message.split(" ")[1]) + ";")
+        if (message.split(" ")[0] === settings.prefix + "arrest"){
+            if (bot.servers[bot.serverFromChannel(channelID)].members[userID].roles.indexOf("196738757779652608") > -1){
+                connection.query("UPDATE citizens SET status = REPLACE(status, \"alive\", \"imprisoned\") WHERE id = " + connection.escape(message.split(" ")[1]) + ";")
                 bot.sendMessage({
                     to: channelID,
-                    message: "banning user..."
-                });
-                bot.ban({
-                    channel: bot.serverFromChannel(channelID),
-                    target: message.split(" ")[1]
+                    message: "arresting user..."
                 });
             }
             else {

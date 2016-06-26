@@ -20,7 +20,7 @@ bot.on('ready', function() {
 });
 
 bot.on('message', function(user, userID, channelID, message, rawEvent, server) {
-    if (channelID not in bot.directMessages) {
+    if (!(channelID in bot.directMessages)) {
         if (message.split(" ")[0] == settings.prefix + "register"){
             var register = true;
             var params = message.split(";");
