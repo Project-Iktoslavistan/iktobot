@@ -1,9 +1,9 @@
-var loginDetails = require("./login.json");
+var settings = require("./login.json");
 var request = require("request");
 var DiscordClient = require('discord.io');
 var bot = new DiscordClient({
     autorun: true,
-    token: loginDetails.inToken
+    token: settings.inToken
 });
 
 var prefix = "%";
@@ -13,7 +13,7 @@ bot.on('ready', function() {
 });
 
 bot.on("message", function(user, userID, channelID, message, server) {
-    if (message === prefix + "hi") {
+    if (message === settings.prefix + "hi") {
         bot.sendMessage({
             to: channelID,
             message: "hi"
